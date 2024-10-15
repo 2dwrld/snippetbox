@@ -8,7 +8,7 @@ import (
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello from Snippetbox"))
+	fmt.Fprintln(w, "Hello from Snippetbox")
 }
 
 func snippetView(w http.ResponseWriter, r *http.Request) {
@@ -17,16 +17,17 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	msg := fmt.Sprintf("Display a specific snippet with ID %d...", id)
-	w.Write([]byte(msg))
+   fmt.Fprintf(w, "Display a specific snippet with ID %d...", id)
 }
 
 func snippetCreate(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Display a form for creating a new snippet..."))
+	fmt.Fprintln(w, "Display a form for creating a new snippet...")
 }
 
 func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Save a new snippet..."))
+   w.Header().Add("Server", "Go")
+   w.WriteHeader(http.StatusCreated)
+	fmt.Fprintln(w, "Save a new snippet...")
 }
 
 func main() {
